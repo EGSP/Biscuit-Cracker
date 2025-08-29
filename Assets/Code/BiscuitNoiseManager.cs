@@ -1,12 +1,14 @@
-﻿using System.Collections;
+﻿using Assets.Code.Interfaces;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Assets.Code
 {
-    public class BiscuitNoiseManager : MonoBehaviour
+    public class BiscuitNoiseManager : MonoBehaviour, ITick
     {
         public float Meter { get; private set; } = 0f; // Current noise level
+
         public float DecayRate = 2.5f; // Noise decay rate per second
         public float Max = 100f; // Maximum noise level
 
@@ -15,21 +17,22 @@ namespace Assets.Code
         public UnityEvent<float,float> OnNoiseChanged = new UnityEvent<float,float>();
         public UnityEvent OnMaxNoiseReached = new UnityEvent();
 
-        // Use this for initialization
-        void Start()
-        {
+        public UnityEvent OnDestroy { get; } = new UnityEvent();
 
+        public void Awake()
+        {
+            GameManager.Instance.RegisterTickObject(this);
         }
 
         // Update is called once per frame
-        void Update()
+        public void Tick(float deltaTime)
         {
-            UpdateNoise();
+            UpdateNoise(deltaTime);
         }
 
-        private void UpdateNoise()
+        private void UpdateNoise(float deltaTime)
         {
-            var decay = DecayRate * Time.deltaTime;
+            var decay = DecayRate * deltaTime;
             Meter -= decay;
             Meter = Mathf.Clamp(Meter, 0f, Max);
             OnNoiseChanged?.Invoke(Meter, decay);
@@ -49,5 +52,6 @@ namespace Assets.Code
                 OnMaxNoiseReached?.Invoke();
             }
         }
+
     }
 }

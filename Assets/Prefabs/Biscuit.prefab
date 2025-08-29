@@ -45,7 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be0801212c345b4fa9a8b8427218b9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Code.Biscuit
-  Speed: 1
+  Speed: 2
+  OnClickedPointsChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &9121598670897592497
 GameObject:
   m_ObjectHideFlags: 0

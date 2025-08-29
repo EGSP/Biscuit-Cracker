@@ -1,26 +1,44 @@
-﻿using System.Collections;
+﻿using Assets.Code.Interfaces;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Assets.Code
 {
-    public class Biscuit : MonoBehaviour
+    public class Biscuit : MonoBehaviour, ITick
     {
         public float Speed = 1f;
 
         public int ClickPoints { get; set; } = 1;
-
-        public int clickedPoints = 0;
-
-        // Use this for initialization
-        void Start()
+        public int ClickedPoints
         {
-
+            get => clickedPoints;
+            set
+            {
+                var oldValue = clickedPoints;
+                clickedPoints = value;
+                OnClickedPointsChanged.Invoke(clickedPoints, clickedPoints - oldValue);
+            }
         }
 
-        // Update is called once per frame
-        void Update()
+
+
+        private int clickedPoints = 0;
+
+        public UnityEvent<int, int> OnClickedPointsChanged = new UnityEvent<int,int>();
+
+        public UnityEvent OnDestroy { get; } = new UnityEvent();
+
+        public void Tick(float deltaTime)
         {
-            transform.Translate(Vector3.right * Speed * Time.deltaTime);
+            // Move the biscuit to the right over time
+            transform.Translate(Vector3.right * Speed * deltaTime);
+        }
+
+        public void Destroy()
+        {
+            OnDestroy?.Invoke();
+            Destroy(gameObject);
         }
     }
 }

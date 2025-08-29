@@ -48,11 +48,11 @@ namespace Assets.Code
                 if (Vector2.Distance(clampedMousePos, clampedBiscuitPos) < ClickRadius)
                 {
                     // Handle biscuit click
-                    biscuit.clickedPoints++;
+                    biscuit.ClickedPoints++;
                     OnBiscuitClicked?.Invoke(biscuit);
 
-                    Debug.Log($"Biscuit clicked! Total clicks: {biscuit.clickedPoints}");
-                    if(biscuit.clickedPoints >= biscuit.ClickPoints)
+                    Debug.Log($"Biscuit clicked! Total clicks: {biscuit.ClickedPoints}");
+                    if(biscuit.ClickedPoints >= biscuit.ClickPoints)
                     {
                         Debug.Log("Biscuit fully clicked!");
                         // Add score logic here
