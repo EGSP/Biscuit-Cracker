@@ -18,6 +18,7 @@ namespace Assets.Code
                 var oldValue = clickedPoints;
                 clickedPoints = value;
                 OnClickedPointsChanged.Invoke(clickedPoints, clickedPoints - oldValue);
+                OnClick.Invoke(this);
             }
         }
 
@@ -26,6 +27,8 @@ namespace Assets.Code
         private int clickedPoints = 0;
 
         public UnityEvent<int, int> OnClickedPointsChanged = new UnityEvent<int,int>();
+
+        public UnityEvent<Biscuit> OnClick = new UnityEvent<Biscuit>();
 
         public UnityEvent OnDestroy { get; } = new UnityEvent();
 

@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 426725f853496a747b9b97c034dd2336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Code.PlayerHand
-  ClickRadius: 0.5
+  ClickRadius: 1
   OnBiscuitClicked:
     m_PersistentCalls:
       m_Calls:
