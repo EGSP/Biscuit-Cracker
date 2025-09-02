@@ -8,7 +8,7 @@ namespace Assets.Code.Ui
     {
         public TMP_Text scoreText;
 
-        public void UpdateScore(int score, int scoreAdded)
+        public void UpdateScore(float score, float scoreAdded)
         {
             scoreText.text = score.ToString();
         }

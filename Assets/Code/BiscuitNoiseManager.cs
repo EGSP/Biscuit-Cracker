@@ -1,5 +1,7 @@
 ﻿using Assets.Code.Interfaces;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -19,6 +21,9 @@ namespace Assets.Code
 
         public UnityEvent OnDestroy { get; } = new UnityEvent();
 
+        public UnityEvent<BiscuitNoiseManager> BeforeNoiseDecay = new UnityEvent<BiscuitNoiseManager>();
+        public Queue<Func<float, float>> DecayRateModifiers { get; set; } = new Queue<Func<float, float>>();
+
         public void Awake()
         {
             GameManager.Instance.RegisterTickObject(this);
@@ -32,7 +37,17 @@ namespace Assets.Code
 
         private void UpdateNoise(float deltaTime)
         {
-            var decay = DecayRate * deltaTime;
+            BeforeNoiseDecay?.Invoke(this);
+
+            // iterate all modifiers
+            var modifiedDecayRate = DecayRate;
+            foreach (var modifier in DecayRateModifiers)
+            {
+                modifiedDecayRate = modifier(modifiedDecayRate);
+            }
+            DecayRateModifiers.Clear();
+
+            var decay = modifiedDecayRate * deltaTime;
             Meter -= decay;
             Meter = Mathf.Clamp(Meter, 0f, Max);
             OnNoiseChanged?.Invoke(Meter, decay);
@@ -43,7 +58,7 @@ namespace Assets.Code
             var clickPoints = biscuit.ClickPoints;
 
             // Calculate noise increase based on click points
-            var noiseIncrease = Random.Range(ClickNoiseRange.x, ClickNoiseRange.y) * clickPoints;
+            var noiseIncrease = UnityEngine.Random.Range(ClickNoiseRange.x, ClickNoiseRange.y) * clickPoints;
             Meter+= noiseIncrease;
             Meter = Mathf.Clamp(Meter, 0f, Max);
             OnNoiseChanged?.Invoke(Meter, Max);

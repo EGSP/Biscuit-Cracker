@@ -70,11 +70,11 @@ namespace Assets.Code
 
         private void ProceedValue(Biscuit biscuit)
         {
-            int value = biscuit.ClickPoints;
+            float value = biscuit.ClickPoints;
 
-            GameManager.Instance.AddScore(value);
+            GameManager.Instance.Score += value;
 
-            Debug.Log("Collected biscuit worth " + value + " points!");
+            Debug.Log("Collected " + value + " points!");
         }
 
         // draw click radius gizmo

@@ -9,7 +9,16 @@ namespace Assets.Code
 {
     public class GameManager : MonoBehaviour
     {
-        public int Score = 0;
+        public float Score
+        {
+            get => score;
+            set
+            {
+                var oldValue = score;
+                score = value;
+                OnScoreChanged?.Invoke(score, score - oldValue);
+            }
+        }
 
         private List<Biscuit> SpawnedBiscuits = new List<Biscuit>();
 
@@ -21,7 +30,7 @@ namespace Assets.Code
         /// Event int currentScore, int scoreAdded.  
         /// scoreAdded is 0 on initialization
         /// </summary>
-        public UnityEvent<int, int> OnScoreChanged = new UnityEvent<int, int>();
+        public UnityEvent<float, float> OnScoreChanged = new UnityEvent<float, float>();
 
         public UnityEvent<Biscuit> OnBiscuitSpawned = new UnityEvent<Biscuit>();
 
@@ -31,6 +40,7 @@ namespace Assets.Code
 
         private List<ITick> TickRegisteredObjects = new List<ITick>();
         private List<ITick> TickObjectsToRemove = new List<ITick>();
+        private float score;
 
         private void Awake()
         {
@@ -48,7 +58,7 @@ namespace Assets.Code
             SpawnedBiscuits.Clear();
 
             if (OnScoreChanged == null)
-                OnScoreChanged = new UnityEvent<int, int>();
+                OnScoreChanged = new UnityEvent<float, float>();
 
             OnScoreChanged?.Invoke(Score, 0);
         }
@@ -80,12 +90,6 @@ namespace Assets.Code
                 }
                 TickObjectsToRemove.Clear();
             }
-        }
-
-        public void AddScore(int add)
-        {
-            Score += add;
-            OnScoreChanged?.Invoke(Score, add);
         }
 
         public IReadOnlyCollection<Biscuit> GetSpawnedBiscuits()
