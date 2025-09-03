@@ -37,6 +37,24 @@
 
 <img width="431" height="353" alt="image" src="https://github.com/user-attachments/assets/2b30cf89-8bd8-4dba-9b8a-35ae51c99bd6" />
 
+## Управление звуком ##
+
+Звук управляется через SoundManager. Он создает экземпляры Gameobject для каждого звука, включающий:
+- AudioSource. Стандартный компонент Unity для проигрывания звука.
+- SoundController. Нужен для отсчета времени проигрывания и для запуска проигрывания (AudioSource) звука.
+
+SoundManager, чтобы воспроизвести звук, смотрит какие контролеры уже существуют, можно ли их прервать и нужно ли создавать ещё один SoundController для идентичного звука. 
+
+<img width="989" height="659" alt="image" src="https://github.com/user-attachments/assets/21ec75e1-1084-4435-8b28-102da9ee48c0" />
+
+Использовал ScriptableObjects для редактирования звуковых эффектов. 
+
+Каждый звук имеет настройки прерывания. Использую временной порог (treshold), чтобы избежать резкого прерывания при частых кликах. Если прерывание разрешено, но порог не преодолен, то звук не будет проигрываться. 
+
+SoundController`ы повторяют друг друга, если в конифгурации звука запрещено прерывание.
+
+<img width="437" height="190" alt="image" src="https://github.com/user-attachments/assets/da3e7ae6-2cb5-49d1-84de-6fa1fe723e03" />
+
 
 ## Прокачка ##
 
