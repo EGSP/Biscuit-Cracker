@@ -37,6 +37,18 @@
 
 <img width="431" height="353" alt="image" src="https://github.com/user-attachments/assets/2b30cf89-8bd8-4dba-9b8a-35ae51c99bd6" />
 
+## DOTWeen и визуал ##
+
+При клике по пченью, сам объект Biscuit ничего не анимирует. Biscuit запускает событие OnClick.
+
+<img width="696" height="213" alt="image" src="https://github.com/user-attachments/assets/5170a604-bd21-4423-b19c-e9af4e36499c" />
+
+Событие OnClick вызывает метод Impress у компонента BiscuitImpress. Этот компонент отвечает за анимации и визуал. 
+
+Так визульная состовляющая отделена от _данных _и_ логики_.
+
+<img width="807" height="310" alt="image" src="https://github.com/user-attachments/assets/5d4a88c6-f975-4f1c-96be-953085e5d11d" />
+
 ## Управление звуком ##
 
 Звук управляется через SoundManager. Он создает экземпляры Gameobject для каждого звука, включающий:
