@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52ade9202c280c04d887eafcc0c0d708, type: 3}
+  m_Name: Pop
+  m_EditorClassIdentifier: Assembly-CSharp::SoundConfig
+  AudioClip: {fileID: 8300000, guid: 0b8bdeea7c165304e9f0f21097c4d7c0, type: 3}
+  Id: pop
+  InterruptSameId: 1
+  InterruptThresholdSeconds: 0.1

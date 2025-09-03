@@ -32,6 +32,8 @@ namespace Assets.Code
         /// </summary>
         public UnityEvent<float, float> OnScoreChanged = new UnityEvent<float, float>();
 
+        public UnityEvent<float, float> OnScoreAdded = new UnityEvent<float, float>();
+
         public UnityEvent<Biscuit> OnBiscuitSpawned = new UnityEvent<Biscuit>();
 
         public UnityEvent<Biscuit> OnBiscuitDespawned = new UnityEvent<Biscuit>();
@@ -59,6 +61,14 @@ namespace Assets.Code
 
             if (OnScoreChanged == null)
                 OnScoreChanged = new UnityEvent<float, float>();
+
+            OnScoreChanged.AddListener((currentScore, scoreAdded) =>
+            {
+                if (scoreAdded <= 0)
+                    return;
+                    
+                OnScoreAdded.Invoke(currentScore, scoreAdded);
+            });
 
             OnScoreChanged?.Invoke(Score, 0);
         }
